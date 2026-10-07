@@ -1,0 +1,53 @@
+/* =====================================================================
+   style.css — styles PROPRES à la page d'accueil uniquement.
+   Dépend de common.css (importé avant).
+   ===================================================================== */
+
+/* --- Hero : pleine largeur, message central --- */
+.hero {
+  padding: 5rem 0 4rem;
+  background: radial-gradient(ellipse at 30% 20%, #16204a 0%, var(--bg) 60%);
+}
+.hero-kicker {
+  color: var(--accent); font-size: .8rem;
+  text-transform: uppercase; letter-spacing: .12em; margin-bottom: .8rem;
+}
+.hero h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.1; }
+.hero-lead { color: var(--muted); max-width: 42ch; margin: 1.1rem 0 1.8rem; }
+.button {
+  display: inline-block; padding: .7rem 1.3rem;
+  background: var(--accent); color: #06281f;
+  border: none; border-radius: 10px;
+  font-weight: 600; font-size: .9rem; cursor: pointer;
+  text-decoration: none;
+}
+.button:hover { filter: brightness(1.1); }
+
+/* --- Sections : ancre scroll-margin pour ne pas passer
+     sous le header sticky lors d'un clic de navigation --- */
+.section { padding: 3rem 0; scroll-margin-top: 4.5rem; }
+.section-header { margin-bottom: 1.6rem; }
+.section-label {
+  color: var(--accent-2); font-size: .78rem;
+  text-transform: uppercase; letter-spacing: .12em;
+}
+.section-header h2 { font-size: 1.5rem; margin-top: .3rem; max-width: 30ch; }
+
+/* --- Grille de cartes : Grid auto-fit = responsive sans media query --- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.3rem;
+  transition: transform .15s ease, border-color .15s ease;
+}
+.card:hover { transform: translateY(-3px); border-color: var(--accent); }
+.card h3 { font-size: 1rem; margin-bottom: .5rem; }
+.card p { color: var(--muted); font-size: .88rem; }
+.card a { color: var(--text); text-decoration: none; }
+.card a:hover { color: var(--accent); }
