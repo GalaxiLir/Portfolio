@@ -1,0 +1,56 @@
+/* =====================================================================
+   common.css — socle partagé par TOUTES les pages du site.
+   Contient : variables de design, reset minimal, header, footer,
+   conteneurs. Rien de spécifique à une page.
+   ===================================================================== */
+
+/* --- Design system : la seule source de vérité des couleurs --- */
+:root {
+  --bg: #0b1020;          /* fond principal */
+  --panel: #131a30;      /* surfaces (cartes) */
+  --border: #263156;     /* bordures discrètes */
+  --text: #e7ecf7;       /* texte principal */
+  --muted: #93a0bd;       /* texte secondaire */
+  --accent: #5eead4;     /* turquoise : liens, actions */
+  --accent-2: #f59e0b;   /* ambre : focus, éléments secondaires */
+  --maxw: 1000px;        /* largeur de lecture */
+  color-scheme: dark;    /* dit au navigateur : thème sombre */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.container { max-width: var(--maxw); margin: 0 auto; padding: 0 1.25rem; }
+
+/* --- Header sticky : toujours accessible, nav visible --- */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(11, 16, 32, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.site-header .nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-block: 0.9rem;
+}
+.logo { color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: .02em; }
+.nav-links { display: flex; gap: 1.4rem; list-style: none; flex-wrap: wrap; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: .9rem; }
+.nav-links a:hover, .nav-links a:focus-visible { color: var(--accent); }
+
+/* --- Footer --- */
+.site-footer { border-top: 1px solid var(--border); margin-top: 3rem; }
+.site-footer p { color: var(--muted); font-size: .8rem; padding-block: 1.5rem; }
+
+/* --- Accessibilité clavier : jamais de focus invisible --- */
+:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; }
+}
