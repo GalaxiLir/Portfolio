@@ -1,2 +1,2 @@
-# Portfolio-Alix_Rigal
+# Portfolio
 Portefeuille de compétences
