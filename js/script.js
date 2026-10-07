@@ -19,3 +19,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const button = document.querySelector("#explore-button");
+
+    button.addEventListener("click", function () {
+
+        const researchSection = document.querySelector("#research");
+
+        researchSection.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    });
+
+});
