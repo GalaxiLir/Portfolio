@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Démo R&D — Réseau de neurones XOR en direct</title>
+<style>
+  :root {
+    --bg: #0b1020;
+    --panel: #131a30;
+    --panel-2: #1a2342;
+    --text: #e7ecf7;
+    --muted: #93a0bd;
+    --accent: #5eead4;
+    --accent-2: #f59e0b;
+    --danger: #f472b6;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+  }
+  header { text-align: center; margin-bottom: 1.25rem; }
+  header h1 { font-size: 1.35rem; font-weight: 700; letter-spacing: .02em; }
+  header p { color: var(--muted); font-size: .9rem; margin-top: .35rem; }
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 1.25rem;
+    width: 100%;
+    max-width: 1000px;
+  }
+  @media (max-width: 820px) { .layout { grid-template-columns: 1fr; } }
+  .canvas-card {
+    background: var(--panel);
+    border: 1px solid #263156;
+    border-radius: 14px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+  }
+  canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    background: #0e1529;
+    touch-action: none;
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: .78rem;
+    color: var(--muted);
+  }
+  .legend span { display: inline-flex; align-items: center; gap: .4rem; }
+  .swatch { width: 18px; height: 4px; border-radius: 2px; display: inline-block; }
+  .controls {
+    background: var(--panel);
+    border: 1px solid #263156;
+    border-radius: 14px;
+    padding: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .controls h2 { font-size: .95rem; font-weight: 600; }
+  .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+  .metric {
+    background: var(--panel-2);
+    border-radius: 10px;
+    padding: .6rem .7rem;
+  }
+  .metric .label { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .metric .value { font-size: 1.05rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .metric .value.loss { color: var(--accent); }
+  label { font-size: .8rem; color: var(--muted); }
+  .field { display: flex; flex-direction: column; gap: .35rem; }
+  .field output { color: var(--text); font-variant-numeric: tabular-nums; float: right; }
+  input[type="range"] { width: 100%; accent-color: var(--accent); }
+  .btn-row { display: flex; gap: .6rem; }
+  button {
+    flex: 1;
+    padding: .6rem .9rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: .85rem;
+    cursor: pointer;
+    background: var(--panel-2);
+    color: var(--text);
+    transition: transform .08s ease, background .15s ease;
+  }
+  button:hover { background: #233058; }
+  button:active { transform: scale(.97); }
+  button.primary { background: var(--accent); color: #06281f; }
+  button.primary:hover { background: #7cf3de; }
+  button:focus-visible, input:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+  .truth-table { width: 100%; border-collapse: collapse; font-size: .8rem; font-variant-numeric: tabular-nums; }
+  .truth-table th, .truth-table td { padding: .35rem .5rem; text-align: center; border-bottom: 1px solid #263156; }
+  .truth-table .ok { color: var(--accent); }
+  .truth-table .ko { color: var(--danger); }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Apprentissage du XOR en direct</h1>
+    <p>Perceptron multicouche 2–4–1, rétropropagation, entraînement dans votre navigateur.</p>
+  </header>
+
+  <div class="layout">
+    <section class="canvas-card" aria-label="Visualisation du réseau">
+      <canvas id="network-canvas" width="640" height="480" role="img"
+              aria-label="Schéma animé du réseau de neurones en cours d'entraînement"></canvas>
+      <div class="legend">
+        <span><i class="swatch" style="background:#5eead4"></i>Poids positif (épaisseur ∝ |w|)</span>
+        <span><i class="swatch" style="background:#f472b6"></i>Poids négatif</span>
+        <span><i class="swatch" style="background:#3b82f6;height:10px;border-radius:5px"></i>Activation du neurone</span>
+      </div>
+    </section>
+
+    <aside class="controls" aria-label="Contrôles de la simulation">
+      <h2>Contrôles</h2>
+      <div class="metric-grid">
+        <div class="metric">
+          <div class="label">Époque</div>
+          <div class="value" id="epoch-val">0</div>
+        </div>
+        <div class="metric">
+          <div class="label">Erreur (MSE)</div>
+          <div class="value loss" id="loss-val">—</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="lr-slider">Learning rate <output id="lr-out">0.5</output></label>
+        <input type="range" id="lr-slider" min="0.01" max="2" step="0.01" value="0.5" />
+      </div>
+
+      <div class="field">
+        <label for="speed-slider">Époques / image <output id="speed-out">2</output></label>
+        <input type="range" id="speed-slider" min="1" max="20" step="1" value="2" />
+      </div>
+
+      <div class="btn-row">
+        <button id="play-btn" class="primary" aria-pressed="true">⏸ Pause</button>
+        <button id="reset-btn">↺ Réinitialiser</button>
+      </div>
+
+      <h2>Table de vérité</h2>
+      <table class="truth-table" aria-live="polite">
+        <thead><tr><th>x₁</th><th>x₂</th><th>Sortie</th><th>Cible</th></tr></thead>
+        <tbody id="truth-body"></tbody>
+      </table>
+    </aside>
+  </div>
+
+<script>
+/* =====================================================================
+ * NOTE ARCHITECTURALE
+ * Dans votre portfolio réel, ce script est découpé en ES Modules :
+ *   js/neural/NeuralNetwork.js  → class NeuralNetwork
+ *   js/neural/Visualizer.js     → class NetworkVisualizer
+ *   js/neural/main.js           → contrôleur (import des deux, wiring UI)
+ * Tout est inliné ici pour rendre le fichier autonome et testable.
+ * ===================================================================== */
+
+/* ------------------- MODULE 1 : NeuralNetwork ------------------- */
+/* Réseau 2–4–1 (tanh → sigmoïde) résolvant le XOR.
+ * API publique :
+ *   - forward(x)            : retourne les activations de chaque couche
+ *   - trainEpoch(lr)        : une époque complète (4 exemples), renvoie la MSE
+ *   - getState()            : snapshot sérialisable (poids, biais, activations)
+ * Ne touche NI au DOM NI au canvas : c'est du calcul pur, testable
+ * et réutilisable (il vit dans votre dossier js/neural/, pas dans la page). */
+
+class NeuralNetwork {
+  constructor(etaTopology = [2, 4, 1], seed = 42) {
+    this.sizes = etaTopology;
+    // PRNG déterministe (mulberry32) : rendances reproductibles —
+    // indispensable pour un affichage stable et des tests unitaires.
+    this._rng = this._mulberry32(seed);
+    this.reset();
+  }
+
+  _mulberry32(a) {
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  reset() {
+    const [nIn, , nOut] = this.sizes;
+    // Initialisation Xavier/He : variance proportionnelle à 1/fan-in,
+    // évite la saturation des tanh et accélère la convergence.
+    this.weights = [];
+    this.biases = [];
+    for (let l = 0; l < this.sizes.length - 1; l++) {
+      const fanIn = this.sizes[l], fanOut = this.sizes[l + 1];
+      const scale = Math.sqrt(2 / (fanIn + fanOut));
+      const W = new Float64Array(fanIn * fanOut);
+      for (let i = 0; i < W.length; i++) W[i] = (this._rng() * 2 - 1) * scale * 3;
+      this.weights.push(W);
+      this.biases.push(new Float64Array(fanOut)); // biais init à 0
+    }
+    this.epoch = 0;
+    this.lastActivations = this.forward([0, 0]);
+    return this.getState();
+  }
+
+  /* Passe avant. tanh sur les couches cachées (dérivée simple, sortie
+   * centrée), sigmoïde en sortie pour une probabilité ∈ [0, 1].
+   * Tableaux typés Float64Array : contiguous memory, zéro GC pressure. */
+  forward(input) {
+    const acts = [Float64Array.from(input)];
+    for (let l = 0; l < this.weights.length; l++) {
+      const W = this.weights[l], b = this.biases[l];
+      const prev = acts[l], out = new Float64Array(b.length);
+      for (let j = 0; j < b.length; j++) {
+        let z = b[j];
+        for (let i = 0; i < prev.length; i++) z += W[i * b.length + j] * prev[i];
+        out[j] = (l === this.weights.length - 1)
+          ? 1 / (1 + Math.exp(-z))           // sigmoïde (sortie)
+          : Math.tanh(z);                    // tanh (couches cachées)
+      }
+      acts.push(out);
+    }
+    return acts;
+  }
+
+  /* Rétropropagation sur le mini-batch complet (les 4 exemples du XOR).
+   * Retourne la perte quadratique moyenne de l'époque. */
+  trainEpoch(lr) {
+    const data = [[0,0,0],[0,1,1],[1,0,1],[1,1,0]];
+    const L = this.weights.length;
+    // Accumulateurs de gradients, réalloués une seule fois par époque.
+    const gW = this.weights.map(W => new Float64Array(W.length));
+    const gB = this.biases.map(b => new Float64Array(b.length));
+    let loss = 0;
+
+    for (const [x1, x2, target] of data) {
+      const acts = this.forward([x1, x2]);
+      const out = acts[L][0];
+      loss += 0.5 * (out - target) ** 2;
+
+      // Delta de sortie : dérivée croisée simplifiée (MSE + sigmoïde).
+      let delta = new Float64Array([(out - target) * out * (1 - out)]);
+      for (let l = L - 1; l >= 0; l--) {
+        const prev = acts[l], W = this.weights[l];
+        // Accumulation des gradients
+        for (let i = 0; i < prev.length; i++)
+          for (let j = 0; j < delta.length; j++)
+            gW[l][i * delta.length + j] += prev[i] * delta[j];
+        for (let j = 0; j < delta.length; j++) gB[l][j] += delta[j];
+
+        if (l > 0) {
+          // Propagation du delta vers la couche précédente (tanh')
+          const nextDelta = new Float64Array(prev.length);
+          for (let i = 0; i < prev.length; i++) {
+            let e = 0;
+            for (let j = 0; j < delta.length; j++) e += W[i * delta.length + j] * delta[j];
+            nextDelta[i] = e * (1 - prev[i] * prev[i]);
+          }
+          delta = nextDelta;
+        }
+      }
+    }
+
+    // Descente de gradient (batch, pas de momentum pour rester lisible)
+    for (let l = 0; l < L; l++) {
+      for (let k = 0; k < this.weights[l].length; k++)
+        this.weights[l][k] -= lr * gW[l][k] / 4;
+      for (let j = 0; j < this.biases[l].length; j++)
+        this.biases[l][j] -= lr * gB[l][j] / 4;
+    }
+
+    this.epoch++;
+    this.lastActivations = this.forward([0, 0]);
+    return loss / 4;
+  }
+
+  /* Snapshot immuable de l'état : le visualiseur ne lit JAMAIS les
+   * tableaux internes du réseau — découplage total modèle/vue. */
+  getState() {
+    return {
+      epoch: this.epoch,
+      sizes: this.sizes.slice(),
+      weights: this.weights.map(W => Array.from(W)),
+      biases: this.biases.map(b => Array.from(b)),
+      activations: this.lastActivations.map(a => Array.from(a)),
+    };
+  }
+}
+
+/* ------------------- MODULE 2 : NetworkVisualizer ------------------- */
+/* Responsabilité unique : transformer un état (getState()) en pixels.
+ * Ne connaît ni le DOM de contrôle ni la logique d'apprentissage.
+ * Boucle interne requestAnimationFrame pilotée de l'extérieur. */
+
+class NetworkVisualizer {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.resize();
+    window.addEventListener('resize', () => this.resize());
+  }
+
+  /* Haute densité de pixels : le canvas est dessiné en dpr× puis
+   * réduit en CSS — texte et connexions nets sur écrans Retina. */
+  resize() {
+    const { clientWidth, clientHeight } = this.canvas;
+    this.w = clientWidth; this.h = clientHeight;
+    this.canvas.width = clientWidth * this.dpr;
+    this.canvas.height = clientHeight * this.dpr;
+    this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+  }
+
+  /* Position des neurones, calculée une seule fois par géométrie,
+   * pas à chaque frame (layout en colonnes, marges en %). */
+  _layout(sizes) {
+    const nodes = [];
+    const padX = this.w * 0.14, padY = this.h * 0.12;
+    sizes.forEach((n, layer) => {
+      const x = padX + layer * (this.w - 2 * padX) / (sizes.length - 1);
+      for (let i = 0; i < n; i++) {
+        const y = n === 1 ? this.h / 2
+          : padY + i * (this.h - 2 * padY) / (n - 1);
+        nodes.push({ x, y, layer, index: i });
+      }
+    });
+    return nodes;
+  }
+
+  render(state) {
+    const ctx = this.ctx;
+    ctx.clearRect(0, 0, this.w, this.h);
+    const nodes = this._layout(state.sizes);
+
+    /* --- Connexions : couleur = signe, épaisseur = |w| ---
+     * Le mapping visuel encode directement la grandeur mathématique. */
+    let nodeIdx = 0;
+    const layerStart = [];
+    state.sizes.forEach((n, l) => { layerStart[l] = nodeIdx; nodeIdx += n; });
+
+    for (let l = 0; l < state.weights.length; l++) {
+      const W = state.weights[l], nOut = state.sizes[l + 1];
+      for (let i = 0; i < state.sizes[l]; i++) {
+        for (let j = 0; j < nOut; j++) {
+          const w = W[i * nOut + j];
+          const a = nodes[layerStart[l] + i], b = nodes[layerStart[l + 1] + j];
+          const mag = Math.min(Math.abs(w), 3) / 3;          // normalisation
+          const alpha = 0.15 + 0.75 * mag;
+          ctx.strokeStyle = w >= 0
+            ? `rgba(94, 234, 212, ${alpha})`   // positif → turquoise
+            : `rgba(244, 114, 182, ${alpha})`; // négatif → rose
+          ctx.lineWidth = 0.5 + 3.5 * mag;
+          ctx.beginPath();
+          // Léger décalage vertical par neurone de départ : les arêtes
+          // qui partagent un nœud ne se superposent pas parfaitement.
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    /* --- Neurones : rayon fixe, remplissage = activation ∈ [-1,1] --- */
+    let k = 0;
+    for (let layer = 0; layer < state.sizes.length; layer++) {
+      for (let i = 0; i < state.sizes[layer]; i++, k++) {
+        const n = nodes[k];
+        const act = state.activations[layer][i] ?? 0;
+        const isOutput = layer === state.sizes.length - 1;
+        const r = isOutput ? 18 : 13;
+
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+        // Interpolation bleu (inactive) → turquoise (active)
+        const t = Math.max(0, Math.min(1, (act + 1) / 2));
+        ctx.fillStyle = `rgb(${Math.round(59 + 35 * t)}, ${Math.round(130 + 104 * t)}, ${Math.round(246 - 214 * t)})`;
+        ctx.fill();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+        ctx.stroke();
+
+        // Valeur d'activation affichée (pédagogie)
+        ctx.fillStyle = '#e7ecf7';
+        ctx.font = '11px system-ui';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(act.toFixed(2), n.x, n.y);
+      }
+    }
+  }
+}
+
+/* ------------------- MODULE 3 : main (contrôleur) ------------------- */
+/* Seul endroit où l'on parle au DOM. Principe clé : les événements
+ * 'input' ne font QUE muter une variable — tout le travail lourd est
+ * regroupé dans la boucle rAF, une seule écriture DOM par frame. */
+
+const $ = id => document.getElementById(id);
+const net = new NeuralNetwork([2, 4, 1]);
+const viz = new NetworkVisualizer($('network-canvas'));
+
+const params = { lr: 0.5, epochsPerFrame: 2, running: true };
+let lastState = net.getState();
+
+/* Regroupement des mises à jour DOM : lire layout → écrire → relayout
+ * est coûteux ; on n'écrit qu'une fois par image, dans le rAF. */
+function updateDOM(state, loss) {
+  $('epoch-val').textContent = state.epoch;
+  $('loss-val').textContent = loss == null ? '—' : loss.toExponential(2);
+  const rows = [[0,0],[0,1],[1,0],[1,1]];
+  const targets = [0, 1, 1, 0];
+  $('truth-body').innerHTML = rows.map(([a, b], i) => {
+    const out = net.forward([a, b]).at(-1)[0];
+    const ok = Math.round(out) === targets[i];
+    return `<tr><td>${a}</td><td>${b}</td><td class="${ok ? 'ok' : 'ko'}">${out.toFixed(3)}</td><td>${targets[i]}</td></tr>`;
+  }).join('');
+}
+
+/* Boucle d'animation unique : 60 FPS = ~16.7 ms de budget par image.
+ * On entraîne N époques (< 1 ms chacune), on pique un snapshot, on
+ * redessine, on met à jour le texte. Aucun setInterval, aucun setTimeout. */
+function frame() {
+  if (params.running) {
+    let loss = null;
+    for (let e = 0; e < params.epochsPerFrame; e++) loss = net.trainEpoch(params.lr);
+    lastState = net.getState();
+    updateDOM(lastState, loss);
+  }
+  viz.render(lastState);
+  requestAnimationFrame(frame);
+}
+
+/* Contrôles : délégation d'événements + pas de travail dans le handler */
+$('lr-slider').addEventListener('input', e => {
+  params.lr = +e.target.value;
+  $('lr-out').textContent = params.lr.toFixed(2);
+});
+$('speed-slider').addEventListener('input', e => {
+  params.epochsPerFrame = +e.target.value;
+  $('speed-out').textContent = params.epochsPerFrame;
+});
+$('play-btn').addEventListener('click', e => {
+  params.running = !params.running;
+  e.target.textContent = params.running ? '⏸ Pause' : '▶ Lecture';
+  e.target.setAttribute('aria-pressed', String(params.running));
+});
+$('reset-btn').addEventListener('click', () => {
+  lastState = net.reset();
+  updateDOM(lastState, null);
+});
+
+updateDOM(lastState, null);
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
