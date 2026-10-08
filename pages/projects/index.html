@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Démo interactive : un réseau de neurones s'entraîne en direct dans le navigateur (XOR, rétropropagation, Vanilla JS + Canvas).">
+  <title>Réseau de neurones en direct — Démo R&amp;D</title>
+
+  <!-- L'ORDRE COMPTE : common.css (variables :root) AVANT demo.css.
+       3 niveaux de dossier pour remonter à la racine du site. -->
+  <link rel="stylesheet" href="../../../css/common.css">
+  <link rel="stylesheet" href="assets/css/demo.css">
+</head>
+<body>
+
+  <!-- Lien retour : la boucle de navigation est fermée -->
+  <p class="back-link">
+    <a href="../../../index.html">← Retour au portfolio</a>
+  </p>
+
+  <header>
+    <h1>Apprentissage du XOR en direct</h1>
+    <p>Perceptron multicouche 2–4–1, rétropropagation, entraînement dans votre navigateur.</p>
+  </header>
+
+  <div class="layout">
+    <section class="canvas-card" aria-label="Visualisation du réseau">
+      <canvas id="network-canvas" width="640" height="480" role="img"
+              aria-label="Schéma animé du réseau de neurones en cours d'entraînement"></canvas>
+      <div class="legend">
+        <span><i class="swatch" style="background:#5eead4"></i>Poids positif (épaisseur ∝ |w|)</span>
+        <span><i class="swatch" style="background:#f472b6"></i>Poids négatif</span>
+        <span><i class="swatch" style="background:#3b82f6;height:10px;border-radius:5px"></i>Activation du neurone</span>
+      </div>
+    </section>
+
+    <aside class="controls" aria-label="Contrôles de la simulation">
+      <h2>Contrôles</h2>
+      <div class="metric-grid">
+        <div class="metric">
+          <div class="label">Époque</div>
+          <div class="value" id="epoch-val">0</div>
+        </div>
+        <div class="metric">
+          <div class="label">Erreur (MSE)</div>
+          <div class="value loss" id="loss-val">—</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="lr-slider">Learning rate <output id="lr-out">0.5</output></label>
+        <input type="range" id="lr-slider" min="0.01" max="2" step="0.01" value="0.5" />
+      </div>
+
+      <div class="field">
+        <label for="speed-slider">Époques / image <output id="speed-out">2</output></label>
+        <input type="range" id="speed-slider" min="1" max="20" step="1" value="2" />
+      </div>
+
+      <div class="btn-row">
+        <button id="play-btn" class="primary" aria-pressed="true">⏸ Pause</button>
+        <button id="reset-btn">↺ Réinitialiser</button>
+      </div>
+
+      <h2>Table de vérité</h2>
+      <table class="truth-table" aria-live="polite">
+        <thead><tr><th>x₁</th><th>x₂</th><th>Sortie</th><th>Cible</th></tr></thead>
+        <tbody id="truth-body"></tbody>
+      </table>
+    </aside>
+  </div>
+
+  <!-- type="module" : ES Modules activés, script automatiquement
+       différé (exécuté après le HTML) et en mode strict. -->
+  <script type="module" src="assets/js/neural/main.js"></script>
+</body>
+</html>
