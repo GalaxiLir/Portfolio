@@ -20,11 +20,12 @@ Mon parcours associe recherche académique, projets de R&D, conseil statistique 
 ## Vue d’ensemble Profil scientifique
 
 * **Positionnement :** ingénierie R&D en modélisation statistique appliquée, avec une spécialisation dans les données environnementales ou industrielles.
-* **Recherche :** doctorat en mathématiques appliquées et publication dans *Climate Dynamics*.
+* **Modélisation statistique** : méthodes paramétriques et non paramétriques, régression quantile, lissage par splines, analyse de séries temporelles et quantification de l’incertitude.
+* **Recherche :** doctorat en mathématiques appliquées consacré à la modélisation statistique du climat non stationnaire.
 * **R&D et conseil :** cofondateur de TransverseLab ; missions portant notamment sur l’incertitude, les plans d’expérience et la reconstruction de séries temporelles.
 * **Enseignement :** plus de 250 heures d’enseignement en mathématiques appliquées, probabilités, statistique et analyse de données.
 * **Outils principaux :** R, Python, Matlab, Bash, LaTeX et outils de traitement de données scientifiques.
-* **Traitement d’images 3D :**  analyse d’images multiphasées avec Fiji/ImageJ et Python, développement de macros ImageJ, mesures géométriques de volumes et utilisation de méthodes d’apprentissage automatique.
+* **Traitement d’images 2D/3D :**  analyse d’images multiphasées avec Fiji/ImageJ et Python, développement de macros ImageJ, mesures géométriques de volumes et utilisation de méthodes d’apprentissage automatique.
 
 ## Parcours professionnel et scientifique
 
