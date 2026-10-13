@@ -6,6 +6,7 @@ Docteur en mathématiques appliquées, spécialisé en modélisation statistique
 
 Mon parcours associe recherche académique, projets de R&D, conseil statistique et enseignement supérieur.
 
+<!-- Commentaire interne : ajouter ici le lien vers la publication vérifiée. -->
 ### Quelques liens/contacts:
 **Portfolio en ligne (en cours d'édition) :** [https://galaxilir.github.io/Portfolio/]
 **CV détaillé :** [assets/portefeuille2compétences.pdf]
@@ -14,7 +15,7 @@ Mon parcours associe recherche académique, projets de R&D, conseil statistique 
 
 ---
 
-## En bref
+## Profil scientifique
 
 * **Positionnement :** ingénierie R&D en modélisation statistique appliquée, avec une spécialisation dans les données environnementales ou industrielles.
 * **Recherche :** doctorat en mathématiques appliquées et publication dans *Climate Dynamics*.
