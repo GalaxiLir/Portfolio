@@ -51,7 +51,10 @@ Mon parcours associe recherche académique, projets de R&D, conseil statistique 
 * Étude de la déformation du cycle saisonnier dans un climat non stationnaire.
 * Développement de méthodes de modélisation non paramétrique, notamment à base de splines et de méthodes de lissage.
 * Travaux sur l’estimation de normales climatologiques quotidiennes dans un climat changeant.
-![Exemple de visualisation de données scientifiques](images/NormAnParistemp1.pdf)
+<! ![Exemple de visualisation de données scientifiques](images/NormAnParistemp1.pdf)
+[![Figure sur les normales climatologiques](images/NormAnParistemp1.png)(images/NormAnParistemp1.pdf)
+
+*Figure — Estimation de normales climatologiques. Cliquer sur l’image pour ouvrir le PDF complet.*
 ### Enseignement supérieur — ENAC et École nationale de la météorologie
 
 * Plus de 250 heures d’enseignement.
