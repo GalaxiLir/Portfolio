@@ -21,11 +21,11 @@ Mon parcours associe recherche académique, projets de R&D, conseil statistique 
 
 * **Positionnement :** ingénierie R&D en modélisation statistique appliquée, avec une spécialisation dans les données environnementales ou industrielles.
 * **Modélisation statistique** : méthodes paramétriques et non paramétriques, régression quantile, lissage par splines, analyse de séries temporelles et quantification de l’incertitude.
-* **Recherche :** doctorat en mathématiques appliquées consacré à la modélisation statistique du climat non stationnaire.
+* **Recherche :** ddoctorat en mathématiques appliquées consacré à la modélisation statistique du climat non stationnaire, complété par des travaux en environnement et en mobilité. Intérêt pour les méthodes statistiques, notamment les modèles additifs généralisés (GAM), ainsi que pour les fondements théoriques de la statistique, en particulier la géométrie de l’information.
 * **R&D et conseil :** cofondateur de TransverseLab ; missions portant notamment sur l’incertitude, les plans d’expérience et la reconstruction de séries temporelles.
 * **Enseignement :** plus de 250 heures d’enseignement en mathématiques appliquées, probabilités, statistique et analyse de données.
 * **Outils principaux :** R, Python, Matlab, Bash, LaTeX et outils de traitement de données scientifiques.
-* **Traitement d’images 2D/3D :**  analyse d’images multiphasées avec Fiji/ImageJ et Python, développement de macros ImageJ, mesures géométriques de volumes et utilisation de méthodes d’apprentissage automatique.
+* **Traitement d’images 2D/3D :**  traitement et segmentation d’images scientifiques avec Fiji/ImageJ et Python, notamment pour l’analyse de données 3D multiphasées, l’extraction de mesures géométriques et la mobilisation de méthodes d’apprentissage automatique.
 
 ## Parcours professionnel et scientifique
 
@@ -189,23 +189,8 @@ L’objectif n’est pas seulement de produire un modèle, mais de comprendre ce
 
 ## À propos de ce dépôt
 
-Ce dépôt présente une vitrine scientifique et professionnelle : projets sélectionnés, méthodes, publications et démonstrations reproductibles.
-
-Les données confidentielles, les données brutes non publiques, les documents clients et les travaux internes ne doivent pas être publiés ici. Les illustrations génériques seront clairement identifiées comme telles et ne seront pas présentées comme des résultats expérimentaux.
-
-## Navigation
-
-* **Portfolio en ligne :** [URL GitHub Pages à compléter]
-* **Code et démonstrations :** parcourir les dossiers de ce dépôt.
-* **CV détaillé :** [chemin du PDF à compléter après ajout du fichier]
-* **Contact :** [adresse professionnelle à compléter]
-
-## Navigation
-
-* **Vue d’ensemble :** profil scientifique et positionnement.
-* **Travaux et réalisations :** projets de recherche, études statistiques et applications.
-* **Méthodes et outils :** modélisation statistique, programmation scientifique et traitement de données.
-* **Ressources et contact :** CV, portefeuille de compétences et coordonnées professionnelles.
+Ce dépôt constitue mon portfolio scientifique et professionnel. Il présente une sélection de travaux, de méthodes statistiques, de projets de R&D et de publications illustrant mon parcours en mathématiques appliquées, modélisation statistique et analyse de données.
+Données et démonstrations. Pour des raisons de confidentialité, les jeux de données présentés dans certaines démonstrations ont été modifiés à des fins d’illustration méthodologique. Ils ne correspondent pas aux données réelles utilisées dans le cadre des missions contractuelles. Les exemples publiés visent à illustrer les méthodes d’analyse et de modélisation, sans divulguer les données confidentielles ni, le cas échéant, l’identité des partenaires.
 
 ## Navigation
 
@@ -218,12 +203,7 @@ Les données confidentielles, les données brutes non publiques, les documents c
 * [Philosophie de travail](#philosophie-de-travail)
 * [À propos de ce dépôt](#à-propos-de-ce-dépôt)
 * [Ressources et contact](#ressources-et-contact)
-* [Pour les recruteurs](#pour-les-recruteurs)
 
 
-## Pour les recruteurs
 
-Je suis particulièrement intéressé par des missions d’ingénierie R&D et de recherche appliquée nécessitant de transformer une question scientifique ou industrielle en démarche statistique rigoureuse : compréhension des données, choix du modèle, validation, analyse de l’incertitude et restitution des résultats.
-
-Mon parcours associe une formation approfondie en mathématiques appliquées, une expérience de recherche académique, des projets R&D et une activité d’enseignement supérieur.
 
