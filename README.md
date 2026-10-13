@@ -57,7 +57,7 @@ Mon parcours associe recherche académique, projets de R&D, conseil statistique 
 
 ![Figure sur les normales climatologiques](images/NormAnParistemp1.png)(images/NormAnParistemp1.pdf)
 
-*Figure — Estimation de normales climatologiques. Cliquer sur l’image pour ouvrir le PDF complet.*
+*Figure — Comparaison de différentes estimations des normales climatologiques annuelles de température à Paris. Cliquer sur la figure pour consulter le PDF complet.*
 ### Enseignement supérieur — ENAC et École nationale de la météorologie
 
 * Plus de 250 heures d’enseignement.
@@ -199,6 +199,27 @@ Les données confidentielles, les données brutes non publiques, les documents c
 * **Code et démonstrations :** parcourir les dossiers de ce dépôt.
 * **CV détaillé :** [chemin du PDF à compléter après ajout du fichier]
 * **Contact :** [adresse professionnelle à compléter]
+
+## Navigation
+
+* **Vue d’ensemble :** profil scientifique et positionnement.
+* **Travaux et réalisations :** projets de recherche, études statistiques et applications.
+* **Méthodes et outils :** modélisation statistique, programmation scientifique et traitement de données.
+* **Ressources et contact :** CV, portefeuille de compétences et coordonnées professionnelles.
+
+## Navigation
+
+* [Vue d’ensemble](#vue-densemble-profil-scientifique)
+* [Parcours professionnel et scientifique](#parcours-professionnel-et-scientifique)
+* [Compétences](#compétences)
+* [Projets scientifiques et R&D](#projets-scientifiques-et-rd)
+* [Publications](#publications)
+* [Enseignement et communication scientifique](#enseignement-et-communication-scientifique)
+* [Philosophie de travail](#philosophie-de-travail)
+* [À propos de ce dépôt](#à-propos-de-ce-dépôt)
+* [Ressources et contact](#ressources-et-contact)
+* [Pour les recruteurs](#pour-les-recruteurs)
+
 
 ## Pour les recruteurs
 
