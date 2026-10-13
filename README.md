@@ -24,7 +24,7 @@ Mon parcours associe recherche académique, projets de R&D, conseil statistique 
 * **R&D et conseil :** cofondateur de TransverseLab ; missions portant notamment sur l’incertitude, les plans d’expérience et la reconstruction de séries temporelles.
 * **Enseignement :** plus de 250 heures d’enseignement en mathématiques appliquées, probabilités, statistique et analyse de données.
 * **Outils principaux :** R, Python, Matlab, Bash, LaTeX et outils de traitement de données scientifiques.
-* **Imagerie scientifique récente :** traitement d’images 3D avec Fiji/ImageJ, macros ImageJ au format `.ijm`, mesures géométriques de volumes multiphasés et utilisation de méthodes d’apprentissage automatique avec Python.
+* **Traitement d’images 3D :**  analyse d’images multiphasées avec Fiji/ImageJ et Python, développement de macros ImageJ, mesures géométriques de volumes et utilisation de méthodes d’apprentissage automatique.
 
 ## Parcours professionnel et scientifique
 
