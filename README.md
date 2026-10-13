@@ -7,7 +7,7 @@ Docteur en mathématiques appliquées, spécialisé en modélisation statistique
 Mon parcours associe recherche académique, projets de R&D, conseil statistique et enseignement supérieur.
 
 **Portfolio en ligne (en cours d'édition) :** [https://galaxilir.github.io/Portfolio/]
-**CV détaillé :** [Ajouter ici le lien vers le CV PDF]
+**CV détaillé :** [assets/portefeuille2compétences.pdf]
 **portefeuille de compétences:**[Consulter le CV détaillé (PDF)](assets/portefeuille2compétences.pdf)
 **Contact :** [alix.rigal@transverselab.com]
 
