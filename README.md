@@ -21,7 +21,7 @@ Mon parcours associe recherche académique, projets de R&D, conseil statistique 
 
 * **Positionnement :** ingénierie R&D en modélisation statistique appliquée, avec une spécialisation dans les données environnementales ou industrielles.
 * **Modélisation statistique** : méthodes paramétriques et non paramétriques, régression quantile, lissage par splines, analyse de séries temporelles et quantification de l’incertitude.
-* **Recherche :** ddoctorat en mathématiques appliquées consacré à la modélisation statistique du climat non stationnaire, complété par des travaux en environnement et en mobilité. Intérêt pour les méthodes statistiques, notamment les modèles additifs généralisés (GAM), ainsi que pour les fondements théoriques de la statistique, en particulier la géométrie de l’information.
+* **Recherche :** doctorat en mathématiques appliquées consacré à la modélisation statistique du climat non stationnaire, complété par des travaux en environnement et en mobilité. Intérêt pour les méthodes statistiques, notamment les modèles additifs généralisés (GAM), ainsi que pour les fondements théoriques de la statistique, en particulier la géométrie de l’information.
 * **R&D et conseil :** cofondateur de TransverseLab ; missions portant notamment sur l’incertitude, les plans d’expérience et la reconstruction de séries temporelles.
 * **Enseignement :** plus de 250 heures d’enseignement en mathématiques appliquées, probabilités, statistique et analyse de données.
 * **Outils principaux :** R, Python, Matlab, Bash, LaTeX et outils de traitement de données scientifiques.
