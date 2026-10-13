@@ -7,7 +7,7 @@ Docteur en mathématiques appliquées, spécialisé en modélisation statistique
 Mon parcours associe recherche académique, projets de R&D, conseil statistique et enseignement supérieur.
 
 <!-- Commentaire interne : ajouter ici le lien vers la publication vérifiée. -->
-### Quelques liens/contacts:
+### Ressources et contact:
 
 * **Portfolio en ligne (en cours d'édition) :** [https://galaxilir.github.io/Portfolio/]
 * **CV :** [Consulter ici (PDF)](assets/CV__Spontane_IR.pdf)
