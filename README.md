@@ -16,7 +16,7 @@ Mon parcours associe recherche académique, projets de R&D, conseil statistique 
 
 ---
 
-## Profil scientifique
+## Vue d’ensemble Profil scientifique
 
 * **Positionnement :** ingénierie R&D en modélisation statistique appliquée, avec une spécialisation dans les données environnementales ou industrielles.
 * **Recherche :** doctorat en mathématiques appliquées et publication dans *Climate Dynamics*.
