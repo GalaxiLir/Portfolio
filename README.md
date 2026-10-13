@@ -13,7 +13,7 @@ Mon parcours associe recherche académique, projets de R&D, conseil statistique 
 * **CV :** [Consulter ici (PDF)](assets/CV__Spontane_IR.pdf)
 * **portefeuille de compétences:**[Consulter ici (PDF)](assets/portefeuille2competences.pdf)
 * **Contact :** [alix.rigal@transverselab.com]
-* **Portfolio en ligne (en cours d'édition) :** [https://galaxilir.github.io/Portfolio/]
+* **Portfolio en ligne (sit web) :** [https://galaxilir.github.io/Portfolio/]
 
 ---
 
