@@ -51,3 +51,9 @@
 .card p { color: var(--muted); font-size: .88rem; }
 .card a { color: var(--text); text-decoration: none; }
 .card a:hover { color: var(--accent); }
+.card .button {
+  display: inline-block;
+  margin-top: 1rem;
+  text-decoration: none;
+}
+
